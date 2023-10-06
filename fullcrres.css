@@ -1,0 +1,22 @@
+
+/* perfectrly removes the  extra margin . fits acc to thescreen*/
+/* body{
+    margin:0;
+    display:flex;
+    place-items:center;
+    min-width:320px;
+    min-height:100vh
+} */
+
+*{
+    margin: 0;
+    padding: 0;
+}
+html,body{
+overflow: hidden;
+}
+.webgl{
+    position: fixed;
+    top: 0;
+    left: 0;
+}
