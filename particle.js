@@ -18,24 +18,83 @@ const scene = new THREE.Scene()
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
-
+const particleTexture=textureLoader.load('./particles/textures/particle/9.png')
 
 //particles
 
 //geometry
-const particlesGeometry=new THREE.SphereGeometry(1,32,32)
+const particlesGeometry=new THREE.BufferGeometry()
+const count=50000
+
+
+const positions=new Float32Array(count*3)
+
+for(let i=0;i<count*3;i++){
+    positions[i]=(Math.random()-0.5)*10
+}
+particlesGeometry.setAttribute("position",new THREE.BufferAttribute(positions,3))
+
+
 
 //material
 const particlesMaterial=new THREE.PointsMaterial({
-    size:0.02,
-    sizeAttenuation:true
+    color:'pink',
+        size:0.1,
+    sizeAttenuation:true,
+   map:particleTexture,
+   transparent:true,
+   alphaMap:particleTexture,
+//    alphaTest:0.001,
+// depthTest:false,
+depthWrite:false,
+blending:THREE.AdditiveBlending
 })
 
 //points
 const particles=new THREE.Points(particlesGeometry,particlesMaterial)
 scene.add(particles)
 
+const geometr = new THREE.TorusGeometry( 10, 3, 16, 100 ); 
+const materia = new THREE.MeshBasicMaterial( { color: 0xffff00 } ); 
+const torus = new THREE.Mesh( geometr, materia ); scene.add( torus );
 
+
+//cube
+const cube=new THREE.Mesh(
+    new THREE.BoxGeometry(1,1,1),
+    new THREE.MeshBasicMaterial({color:'green'})
+)
+scene.add(cube)
+
+//full sphere
+const sphere=new THREE.Mesh(
+    new THREE.SphereGeometry(1,32,32),
+    new THREE.MeshBasicMaterial({color:'#FFE87C'})
+
+
+)
+scene.add(sphere)
+
+const geomety = new THREE.SphereGeometry( 15, 32, 16 ); 
+const materil = new THREE.MeshBasicMaterial( { color: 0xffff00 } ); 
+const sphee = new THREE.Mesh( geomety, materil ); scene.add( sphee );
+
+const x = 0, y = 0;
+
+const heartShape = new THREE.Shape();
+
+heartShape.moveTo( x + 5, y + 5 );
+heartShape.bezierCurveTo( x + 5, y + 5, x + 4, y, x, y );
+heartShape.bezierCurveTo( x - 6, y, x - 6, y + 7,x - 6, y + 7 );
+heartShape.bezierCurveTo( x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19 );
+heartShape.bezierCurveTo( x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7 );
+heartShape.bezierCurveTo( x + 16, y + 7, x + 16, y, x + 10, y );
+heartShape.bezierCurveTo( x + 7, y, x + 5, y + 5, x + 5, y + 5 );
+
+const geometry = new THREE.ShapeGeometry( heartShape );
+const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+const mesh = new THREE.Mesh( geometry, material ) ;
+scene.add( mesh );
 
 /**
  * Sizes
